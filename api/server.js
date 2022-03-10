@@ -1,30 +1,38 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const connectDb = require('./src/connection');
-const User = require('./src/User.model');
-const cors = require('cors');
-
+const connectDb = require("./src/connection");
+const cors = require("cors");
+var router = express.Router();
+const users = require("./src/routes/users.js");
 const PORT = 8080;
+
 app.use(cors());
 
-app.get('/users', async (req, res) => {
-  const users = await User.find();
+app.use(express.json());
 
-  res.json(users);
-});
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/user-create', async (req, res) => {
-  const user = new User({ username: 'userTest' });
+// app.get("/users", async (req, res) => {
+//   const users = await User.find();
+//   res.json(users);
+// });
 
-  await user.save().then(() => console.log('User created'));
+// app.get("/user-create", async (req, res) => {
+//   const user = new User({ username: "userTest" });
 
-  res.send('User created \n');
-});
+//   await user.save().then(() => console.log("User created"));
 
-app.listen(PORT, function() {
+//   res.send("User created \n");
+// });
+
+require("./src/routes/users")(app);
+require("./src/routes/etudes")(app);
+require("./src/routes/auth")(app);
+
+app.listen(PORT, function () {
   console.log(`Listening on ${PORT}`);
 
   connectDb().then(() => {
-    console.log('MongoDb connected');
+    console.log("MongoDb connected");
   });
 });

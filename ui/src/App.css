@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.oreal{
+  position: absolute;
+  width: 384px;
+  height: 217px;
+  left: 332px;
+  top: 2246px;
+
+  opacity: 0.5;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+}
