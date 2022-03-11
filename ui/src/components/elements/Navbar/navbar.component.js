@@ -54,10 +54,9 @@ export default function Navbar() {
       <img src={logo} alt="Logo" style={{ margin: "20px" }} />;
       <Banner className="navbar">
         <Left>
-          <Vignette>LOGO</Vignette>
           <Vignette>
             <Link to="/" style={{ textDecoration: "none" }}>
-              Accueil
+              HOME
             </Link>
           </Vignette>
 
