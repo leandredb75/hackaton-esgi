@@ -226,12 +226,15 @@ if(isset($_FILES['csvfile']) && isset($_POST['submit']) && isset($_POST['inputfi
 	}
 
 	$results[$lastP] = $average; # final add
-
+	
+	$allProductId = []; # tous les product id (deux dans le dataset)
 
 	# AVG of each values of each product
 	foreach ($results as $pid => $values) {
 
 		//echo "<script> const P1 =".$pid." </script>";
+
+		$allProductId[] = $pid; 
 
 		$results[$pid]['T']['OX'][0] /= $countT0;
 		$results[$pid]['T']['OX'][1] /= $countTi;
@@ -298,9 +301,9 @@ if(isset($_FILES['csvfile']) && isset($_POST['submit']) && isset($_POST['inputfi
 
 		//function setDataChart(){
 		/* NON TRAITEE */
-			let dataP3 = [<?php echo $results[417432]['NT']['OX'][0]; ?>, <?php echo $results[417432]['NT']['OX'][1]; ?>,<?php echo $results[417432]['T']['OX'][2]; ?>, <?php echo $results[417432]['T']['OX'][3]; ?>];
+			const dataP3 = [<?php echo $results[$allProductId[0]]['NT']['OX'][0]; ?>, <?php echo $results[$allProductId[0]]['NT']['OX'][1]; ?>,<?php echo $results[$allProductId[0]]['T']['OX'][2]; ?>, <?php echo $results[$allProductId[0]]['T']['OX'][3]; ?>];
 
-			let dataP4 = [<?php echo $results[100218]['NT']['OX'][0]; ?>, <?php echo $results[100218]['NT']['OX'][1]; ?>,<?php echo $results[100218]['T']['OX'][2]; ?>, <?php echo $results[100218]['T']['OX'][3]; ?>];
+			const dataP4 = [<?php echo $results[$allProductId[1]]['NT']['OX'][0]; ?>, <?php echo $results[$allProductId[1]]['NT']['OX'][1]; ?>,<?php echo $results[$allProductId[1]]['T']['OX'][2]; ?>, <?php echo $results[$allProductId[1]]['T']['OX'][3]; ?>];
 
 			const data2 = {
 				labels: ['T0','Timme','T7','T14'],
@@ -322,9 +325,9 @@ if(isset($_FILES['csvfile']) && isset($_POST['submit']) && isset($_POST['inputfi
 
 
 		/********	 TRAITEE 	**********/
-			let dataP1 = [<?php echo $results[417432]['T']['OX'][0]; ?>, <?php echo $results[417432]['T']['OX'][1]; ?>,<?php echo $results[417432]['T']['OX'][2]; ?>, <?php echo $results[417432]['T']['OX'][3]; ?>];
+			const dataP1 = [<?php echo $results[$allProductId[1]]['T']['OX'][0]; ?>, <?php echo $results[$allProductId[1]]['T']['OX'][1]; ?>,<?php echo $results[$allProductId[1]]['T']['OX'][2]; ?>, <?php echo $results[$allProductId[1]]['T']['OX'][3]; ?>];
 
-			let dataP2 = [<?php echo $results[100218]['T']['OX'][0]; ?>, <?php echo $results[100218]['T']['OX'][1]; ?>,<?php echo $results[100218]['T']['OX'][2]; ?>, <?php echo $results[100218]['T']['OX'][3]; ?>];
+			const dataP2 = [<?php echo $results[$allProductId[0]]['T']['OX'][0]; ?>, <?php echo $results[$allProductId[0]]['T']['OX'][1]; ?>,<?php echo $results[$allProductId[0]]['T']['OX'][2]; ?>, <?php echo $results[$allProductId[0]]['T']['OX'][3]; ?>];
 
 			const max = 0.01;
 
@@ -567,6 +570,9 @@ if(isset($_FILES['csvfile']) && isset($_POST['submit']) && isset($_POST['inputfi
 			let removeInputButton = document.getElementById("textInputRemove");
 			removeInputButton.hidden = true;
 
+			let displayContent = document.getElementById("displayContent");
+			displayContent.innerText = inputField.value;
+
 			toastr.success('Comment edited !');
 		}
 
@@ -584,7 +590,17 @@ if(isset($_FILES['csvfile']) && isset($_POST['submit']) && isset($_POST['inputfi
 
 	</script>
 	<div class="all">
-		<div id="allbuttons">
+		<div id="allbuttons" hidden>
+
+			<?php
+				if(isset($_POST['submit'])){
+					echo "<script>
+							document.getElementById('allbuttons').hidden = false;
+
+					</script>";
+				}
+
+			?>
 
 			<button class="buttons" id="displayLines" onclick="displayLines()" >Lines chart</button>
 			<button class="buttons" id="hideLines" onclick="hideLines()" hidden>Hide lines chart</button>
@@ -639,7 +655,9 @@ if(isset($_FILES['csvfile']) && isset($_POST['submit']) && isset($_POST['inputfi
 				</div>
 				<div class="form-group">
 					<br/>
-				 <button name="submit" onclick="displayNT()" id="submit-file" class="buttons" class="btn btn-primary">Upload File</button>
+			
+
+				 <button name="submit" id="submit-file" class="buttons" class="btn btn-primary">Upload File</button>
 				 <input type="text" name="inputfilename" placeholder="file name"></input>
 				 <?php
 				 		if(isset($_POST['inputfilename'])){
@@ -650,9 +668,8 @@ if(isset($_FILES['csvfile']) && isset($_POST['submit']) && isset($_POST['inputfi
 
 				 ?>
 				 </div>
-
-
 			</form>
+
 
 		</div>
 		
@@ -667,7 +684,7 @@ if(isset($_FILES['csvfile']) && isset($_POST['submit']) && isset($_POST['inputfi
 		<br/><br/>
 		<canvas id="chartLines2" width="0" height="0" hidden></canvas>
 		<div id="displayContent" hidden>
-		<br/><br/><br/>
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br/>Quisque quis mauris rutrum orci pharetra convallis vitae aliquet dui.<br/>
 Maecenas sed auctor felis, sit amet vulputate felis. <br/>Suspendisse a ante non libero pellentesque eleifend in et arcu.<br/>
 Nam semper mattis mollis. Morbi sodales elit id ultricies egestas. <br/>Sed mollis semper risus, a egestas leo venenatis id.<br/>
@@ -683,6 +700,14 @@ dui risus aliquet metus, ac semper tellus lacus ut augue.
 			display: flex;
 			flex-wrap: wrap;
 			gap: 2px;
+
+		}
+		#textInputRemove{
+			background: #29CC97;
+
+		}
+		#textInput{
+			background: #F18000;
 
 		}
 		#submit-file{
@@ -731,8 +756,11 @@ dui risus aliquet metus, ac semper tellus lacus ut augue.
 		}
 		.all{
 			display: flex;
+			align-items: center;
+			justify-content: center;
 			gap: 1px;
 			padding: 5px;
+
 
 		}
 
