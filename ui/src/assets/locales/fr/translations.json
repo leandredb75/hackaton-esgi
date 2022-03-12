@@ -1,0 +1,26 @@
+{
+    "select_language": "Choisir la langue",
+    "hello_welcome_to_react": "Bonjour, Bienvenue chez React",
+    "this_is_an_example": "Ceci est un exemple",
+    "please_enter_name": "Veuillez saisir le nom",
+    "cookies.message" : "En cliquant sur 'Accepter tout', vous consentez à ce que notre site Web utilise des cookies pour vous offrir l'expérience la plus pertinente en mémorisant vos préférences en matière de cookies. Toutefois, vous pouvez visiter 'Paramètres des cookies' pour fournir un consentement contrôlé.",
+
+    "contact.title":"Contact Us",
+    "contact.name":"Nom",
+    "contact.email":"Email",
+    "contact.message":"Message",
+
+    "biology": "Biology",
+    "nomadic": "IOT Nomadic Lab",
+    "consumer": "Consumer App",
+    "insanety": "Insanely Fast Algorythm",
+    "home.param.title" : "WHAT IS WIRED BEAUTY ? ",
+    "home.param1" :"Wired Beauty as of today is a saas based start-up co-founded by Stanislas and Sophie, two beauty experts who become friends while working toghether at l’Oréal.",
+    "home.param2" : "Stanislas initiated the scientific research on electrochemistry and antiox measurement to develop a skincare prescription tool, and launched a first B2C sun prevention tool (mapo solar).",
+    "home.param3" : "In 2021, considering the blue ocean of cosmetic market research and the latest demands of consumer on efficiency proofs especially in Asia, the two of them decided to pivot to a 100% B2B Saas company, convinced by the potential of this technology.",
+    "home.param4": "As of today, Wired Beauty Technologies has invested 1.3M€ in research on their exclusive IOT, mobile app, algorithand scientific exposome and suncare knowledge partnering with a top-notch consortium ( APHP et Qima lien a créer vers page scientific)"
+
+
+    
+}
+  
